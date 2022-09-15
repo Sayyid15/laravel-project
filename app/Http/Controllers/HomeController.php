@@ -9,8 +9,9 @@ class HomeController extends Controller
     public function show()
     {
         $title = "Welkom op de page";
+        $text = "nieuw onderdeel";
 
-                return view('home', compact(var_name: 'title'));
+                return view('home', compact(var_name: 'title',var_names: 'text'));
     }
 }
 
