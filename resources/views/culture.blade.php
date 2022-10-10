@@ -9,8 +9,6 @@
 </head>
 <body>
 <h1><a href="/culture"> Cultuur</a></h1>
-{{--<h1><a href="/culture">Gerechten</a></h1>--}}
-{{--<h1><a href="/culture">Muziek</a></h1>--}}
-{{--<h1><a href="/culture">Leefstijl</a></h1>--}}
+
 </body>
 </html>

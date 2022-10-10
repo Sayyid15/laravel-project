@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CultureController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,13 @@ Route::get('/', function () {
     return view('culture');
 });
 
+Route::get('/dashboard',function (){
+    return view('dashboard');
+})-> middleware(['auth'])->name('dashboard');
 
-Route::get('/culture', function () {
-    return view('cultures');
-});
+Route::get ('crud',[CultureController::class,'index']);
+Route::post ('crud',[CultureController::class,'add']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
