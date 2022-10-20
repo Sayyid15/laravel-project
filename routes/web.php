@@ -21,15 +21,20 @@ Auth::routes();
 //});
 
 Route::get('/',function (){
+    //
     return view('dashboard');
 })-> middleware(['auth'])->name('dashboard');
-//
-//
-//Route::get ('cultures',[CultureController::class,'index']);
-//Route::post ('cultures',[CultureController::class,'add']);
 
 
-Route::resource('cultures', CultureController::class);
+
+
+    //
+    Route::resource('cultures', CultureController::class);
+
+
+
+//
+
 
 
 

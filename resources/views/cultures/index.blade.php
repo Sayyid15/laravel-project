@@ -1,13 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel CRUD</title>
-</head>
-<body>
+
+@extends('layouts.app')
+
+@section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3" style="margin-top: 50px">
@@ -46,8 +41,8 @@
                 <th>Levensstijl</th>
                 <th>Kleding</th>
                 <th>Gerechten</th>
-                <th>Actions</th>
-                <th>edit</th>
+
+
                 </thead>
                 <tbody>
                 @foreach($cultures as $culture)
@@ -70,13 +65,11 @@
                             </form>
                         </td>
                         <td>
-
-                            <a class="btn btn-success" href="{{route('cultures.show', $culture->id)}}"> View</a>
-
                             <a class="btn btn-success" href="{{route('cultures.edit', $culture->id)}}">Edit</a>
                         </td>
 
                         <td>
+                            <a class="btn btn-success" href="{{route('cultures.show', $culture->id)}}"> View</a>
                         </td>
 
                     </tr>
@@ -90,5 +83,4 @@
     </div>
 </div>
 
-</body>
-</html>
+@endsection

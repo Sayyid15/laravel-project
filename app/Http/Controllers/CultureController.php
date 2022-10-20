@@ -8,6 +8,11 @@ use App\Models\Culture;
 class CultureController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['show','index']);
+    }
+
     public function index()
     {
         $cultures = Culture::all();
@@ -56,12 +61,9 @@ class CultureController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Culture $culture)
     {
-        $culture = Culture::find($id);
-        return view('cultures.show', [
-            ' culture' => $culture
-        ]);
+        return view('cultures.show', compact('culture'));
     }
 
 
