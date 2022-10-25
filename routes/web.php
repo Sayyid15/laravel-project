@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CultureController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,16 +21,14 @@ Auth::routes();
 //    return view('culture');
 //});
 
-Route::get('/',function (){
+Route::get('/', function () {
     //
     return view('dashboard');
-})-> middleware(['auth'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
-
-
-    //
-    Route::resource('cultures', CultureController::class);
+//
+Route::resource('cultures', CultureController::class);
 
 
 

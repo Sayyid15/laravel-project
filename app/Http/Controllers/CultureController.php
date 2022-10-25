@@ -10,23 +10,19 @@ class CultureController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','index']);
+        $this->middleware('auth')->except(['show', 'index']);
     }
 
     public function index()
     {
         $cultures = Culture::all();
         return view('cultures.index', [
-            'cultures' => $cultures
+            'cultures' => $cultures,
         ]);
-
     }
-
 
     public function create()
     {
-
-
         return view('cultures.create');
     }
 
@@ -108,4 +104,5 @@ class CultureController extends Controller
 
         return redirect()->route('cultures.index');
     }
+
 }

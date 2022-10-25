@@ -19,5 +19,8 @@ class Culture extends Model
         "clothes",
         "food"
 
-];
+    ];
+
 }
+
+
