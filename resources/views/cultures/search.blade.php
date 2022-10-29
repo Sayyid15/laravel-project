@@ -16,16 +16,16 @@
 
                         <div class="flex-container">
                             @if(Auth()->user() && Auth()->user()->role === 'admin')
-                                @include('partials.adminCard')
+                                @include('roles.admin')
                             @else()
-                                @include('partials.userCard')
+                                @include('roles.home')
                             @endif
                         </div>
                     </div>
                     @if(Auth()->user())
-                        <a class="btn btn-success" href="{{route('cultures.create')}}">Stel Samen</a>
+                        <a class="btn btn-success" href="{{route('cultures.create')}}">Search</a>
                     @endif
-                    <a href="{{route('cultures.index')}}" class="btn btn-primary">Terug</a>
+                    <a href="{{route('cultures.index')}}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>

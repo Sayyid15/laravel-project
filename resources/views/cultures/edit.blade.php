@@ -9,6 +9,7 @@
                     <div class="alert alert-success">
                         {{Session::get('status')}}
                     </div>
+                @endif
 
                 @if(Session::get('success'))
                     <div class="alert alert-success">
@@ -21,7 +22,7 @@
                         {{Session::get('fail')}}
                     </div>
                 @endif
-                <form action="{{route('cultures.update', $cultures->id )}}" method="POST">
+                <form action="{{route('cultures.update', $culture->id )}}" method="POST">
                     <hr>
                     @method('PATCH')
                     @csrf
@@ -32,7 +33,7 @@
                                name="country"
                                placeholder="Enter country"
                                class="@error('country')is-invalid @enderror form-control"
-                               value="{{ $cultures-> country }}"/>
+                               value="{{ $culture-> country }}"/>
                         @error('country')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
@@ -46,7 +47,7 @@
                                name="culture"
                                placeholder="Enter culture"
                                class="@error('culture')is-invalid @enderror form-control"
-                               value="{{ $cultures-> culture }}"/>
+                               value="{{ $culture-> culture }}"/>
                         @error('culture')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
@@ -59,7 +60,7 @@
                                name="holidays"
                                placeholder="Enter holidays"
                                class="@error('holidays')is-invalid @enderror form-control"
-                               value="{{ $cultures-> holidays }}"/>
+                               value="{{ $culture-> holidays }}"/>
                         @error('holidays')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
@@ -72,7 +73,7 @@
                                name="language"
                                placeholder="Enter language"
                                class="@error('language')is-invalid @enderror form-control"
-                               value="{{ $cultures-> language }}"/>
+                               value="{{ $culture-> language }}"/>
                         @error('language')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
@@ -85,7 +86,7 @@
                                name="religion"
                                placeholder="Enter religion"
                                class="@error('religion')is-invalid @enderror form-control"
-                               value="{{ $cultures-> religion }}"/>
+                               value="{{ $culture-> religion }}"/>
                         @error('religion')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
@@ -98,7 +99,7 @@
                                name="lifestyle"
                                placeholder="Enter lifestyle"
                                class="@error('lifestyle')is-invalid @enderror form-control"
-                               value="{{ $cultures-> lifestyle }}"/>
+                               value="{{ $culture-> lifestyle }}"/>
                         @error('lifestyle')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
@@ -111,7 +112,7 @@
                                name="clothes"
                                placeholder="Enter clothes"
                                class="@error('clothes')is-invalid @enderror form-control"
-                               value="{{ $cultures-> clothes }}"/>
+                               value="{{ $culture-> clothes }}"/>
                         @error('clothes')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
@@ -124,14 +125,14 @@
                                name="food"
                                placeholder="Enter food"
                                class="@error('food')is-invalid @enderror form-control"
-                               value="{{ $cultures-> food }}"/>
+                               value="{{ $culture-> food }}"/>
                         @error('food')
                         <span class="" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
                     <form method="POST" action="">
                         <div class="form-group">
-                            <button action="{{route('cultures.update', $cultures->id)}}" type="submit"
+                            <button action="{{route('cultures.update', $culture->id)}}" type="submit"
                                     class="btn btn-primary btn-block"> Update
                             </button>
                         </div>

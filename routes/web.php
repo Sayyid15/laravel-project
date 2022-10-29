@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/', [CultureController::class, 'index']);
 
-Route::get('statusChange', [CultureController::class, 'statusChange'])->name('changeStatus');
+Route::get('statusChanges', [CultureController::class, 'statusChanges'])->name('statusChanges');
 Route::get('search', [CultureController::class, 'search'])->name('search');
 
 

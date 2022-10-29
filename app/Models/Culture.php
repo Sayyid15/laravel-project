@@ -11,6 +11,7 @@ class Culture extends Model
 
 
     protected $fillable = [
+        "user_id",
         "country",
         "culture",
         "holidays",

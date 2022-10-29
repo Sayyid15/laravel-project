@@ -34,6 +34,7 @@ class CultureController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => 'required',
             'country' => 'required',
             'culture' => 'required',
             'holidays' => 'required',
@@ -65,13 +66,13 @@ class CultureController extends Controller
     public function show( $id)
     {
 
-        $culturesMade = Culture::where('user_id', '=', \Auth::id())->count();
-        $message = '';
+        $culturesCreated = Culture::where('user_id', '=', \Auth::id())->count();
+        $message = 'View can be seen after you ad 2 new cultures';
 
         $culture = Culture::find($id);
 
         if (\Auth::id() !== $culture->user_id && \Auth::user()->role !== 'admin') {
-            return view('cultures.index', compact('message',  'culture', $culturesMade));
+            return view('cultures.index', compact('message',  'culture', $culturesCreated));
         }
 
         return view('cultures.show', [
@@ -113,13 +114,13 @@ class CultureController extends Controller
             $culture->language = $request->get('language');
             $culture->religion = $request->get('religion');
             $culture->lifestyle = $request->get('lifestyle');
-            $culture->clothes = $request->file('clothes');
+            $culture->clothes = $request->get('clothes');
             $culture->food = $request->get('food');
         }
 
-        $culture->update($culture);
+        $culture->update();
 
-        return redirect(route('cultures.index', $culture->id));
+        return redirect()->route('cultures.index', $culture->id);
     }
 
     public function destroy($id)
@@ -149,7 +150,7 @@ class CultureController extends Controller
         return view('cultures.search', compact('cultures'));
     }
 
-    public function statusChange(Request $request)
+    public function statusChanges(Request $request)
     {
         $culture = Culture::find($request->culture_id);
         $culture->status = $request->status;
