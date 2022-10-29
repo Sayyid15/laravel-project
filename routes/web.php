@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CultureController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,22 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-//Route::get('/', function () {
-//    return view('culture');
-//});
+Route::get('/', [CultureController::class, 'index']);
 
-Route::get('/', function () {
-    //
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('statusChange', [CultureController::class, 'statusChange'])->name('changeStatus');
+Route::get('search', [CultureController::class, 'search'])->name('search');
 
 
-//
+Route::resource('users', UserController::class);
 Route::resource('cultures', CultureController::class);
 
 
 
-//
+
+
+
+
 
 
 

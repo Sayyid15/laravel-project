@@ -6,9 +6,11 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3" style="margin-top: 50px">
                 <div class="card-body">
-                    <a href="{{route('cultures.create')}}" class="btn btn-success btn-sm" title="Add New Culture">
-                        Add new
-                    </a>
+
+                        <a href="{{route('cultures.create')}}" class="btn btn-success btn-sm" title="Add New Culture">
+
+                            Add new
+                        </a>
                 </div>
 
 
@@ -30,7 +32,8 @@
                 <div class="sidebar px-4 py-md-0">
                     <h6 class="sidebar-title">Search</h6>
                     <form class="input-group" action="{{route('cultures.index')}}" method="GET">
-                        <input type="text" class="form-control" name="search" placeholder=" Country">
+                        <input type="text" class="form-control" name="query" placeholder=" Country"
+                               value="{{request()->query('search')}}">
                         <div class="input-group-addon">
             <span class="input-group-text">
                 <button type="submit" class="btn btn-primary">Search</button>

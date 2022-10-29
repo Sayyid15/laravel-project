@@ -5,6 +5,10 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3" style="margin-top: 50px">
 
+                @if(Session::get('status'))
+                    <div class="alert alert-success">
+                        {{Session::get('status')}}
+                    </div>
 
                 @if(Session::get('success'))
                     <div class="alert alert-success">

@@ -1,24 +1,22 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel CRUD</title>
-</head>
-<body>
+
+@extends('layouts.app')
+
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3" style="margin-top: 50px">
 
-
+            @if(Session::get('status'))
+                <div class="alert alert-success">
+                    {{Session::get('status')}}
+                </div>
+            @endif
             <form action="{{route('cultures.store')}}" method="POST">
                 <hr>
 
-                @if(Session::get('success'))
+                @if(Session::get('succes'))
                     <div class="alert alert-success">
-                        {{Session::get('success')}}
+                        {{Session::get('succes')}}
                     </div>
                 @endif
 
@@ -28,9 +26,20 @@
                     </div>
                 @endif
 
+
                 @csrf
+
+                <div>
+                    <input id="user_id"
+                           type="hidden"
+                           name="user_id"
+                           value="{{auth()->id()}}"/>
+                    @error('user_id')
+                    <span>{{$message}}</span>
+                    @enderror
+                </div>
+                <h1>Land</h1>
                 <div class="form-group">
-                    <label for="country" class="form-label">Land</label>
                     <input id="country"
                            type="text"
                            name="country"
@@ -42,9 +51,9 @@
                     @enderror
                 </div>
 
-
+<h1>Cultuur</h1>
                 <div class="form-group">
-                    <label for="culture" class="form-label">Cultuur</label>
+
                     <input id="culture"
                            type="text"
                            name="culture"
@@ -56,8 +65,9 @@
                     @enderror
                 </div>
 
+                <h1>Feestdagen</h1>
                 <div class="form-group">
-                    <label for="holidays" class="form-label">Feestdagen</label>
+
                     <input id="holidays"
                            type="text"
                            name="holidays"
@@ -69,8 +79,9 @@
                     @enderror
                 </div>
 
+                <h1>Taal</h1>
                 <div class="form-group">
-                    <label for="language" class="form-label">Taal</label>
+
                     <input id="language"
                            type="text"
                            name="language"
@@ -82,8 +93,9 @@
                     @enderror
                 </div>
 
+                <h1>Religie</h1>
                 <div class="form-group">
-                    <label for="religion" class="form-label">Religie</label>
+
                     <input id="religion"
                            type="text"
                            name="religion"
@@ -95,8 +107,9 @@
                     @enderror
                 </div>
 
+                <h1>Levensstijl</h1>
                 <div class="form-group">
-                    <label for="lifestyle" class="form-label">Levensstijl</label>
+
                     <input id="lifestyle"
                            type="text"
                            name="lifestyle"
@@ -108,8 +121,10 @@
                     @enderror
                 </div>
 
+
+                <h1>Kleding</h1>
                 <div class="form-group">
-                    <label for="clothes" class="form-label">Kleding</label>
+
                     <input id="clothes"
                            type="text"
                            name="clothes"
@@ -121,8 +136,10 @@
                     @enderror
                 </div>
 
+
+                <h1>Hoofd gerecht</h1>
                 <div class="form-group">
-                    <label for="food" class="form-label">Gerecht</label>
+
                     <input id="food"
                            type="text"
                            name="food"
@@ -144,5 +161,6 @@
     </div>
 </div>
 
-</body>
-</html>
+
+@endsection
+

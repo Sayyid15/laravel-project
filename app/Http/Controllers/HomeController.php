@@ -16,6 +16,17 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $culture = Culture::All();
+        return view('cultures.index', compact('culture'));
+    }
 }
 
 

@@ -9,6 +9,7 @@ class Culture extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         "country",
         "culture",
@@ -21,6 +22,17 @@ class Culture extends Model
 
     ];
 
+    public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function culture()
+    {
+        return $this->belongsToMany(Culture::class);
+    }
 }
 
 
