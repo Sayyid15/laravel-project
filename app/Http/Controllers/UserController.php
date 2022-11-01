@@ -11,13 +11,29 @@ class UserController extends Controller
 {
     public function index()
     {
-        $cultures = Culture::where('user_id', '=',   Auth::id())->get();
+        $users = User::all();
 
-        return view('users.home', [
-            'cultures' => $cultures
+        return view('users.index', [
+            'users' => $users
 
         ]);
     }
+    public function show($id)
+    {
+
+
+        $user = User::find($id);
+
+        if ($user->id !== Auth::user()->id && Auth::user()->role !== 'admin') {
+            return view('users.index', compact());
+        }
+
+        return view('users.show', [
+            'culture' => $user
+        ]);
+    }
+
+
 
 
 

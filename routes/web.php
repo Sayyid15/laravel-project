@@ -17,10 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
+Route::get('search', [CultureController::class, 'search'])->name('search');
+
+Route::get('changeStatus', [CultureController::class, 'changeCultureStatus'])->name('changeStatus');
 
 Route::resource('cultures', CultureController::class);
 
-Route::resource('users',UserController::class);
+Route::resource('users', UserController::class);
 
 
 

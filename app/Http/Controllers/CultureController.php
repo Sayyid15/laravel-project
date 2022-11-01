@@ -23,7 +23,7 @@ class CultureController extends Controller
             'cultures' => $cultures,
         ]);
 
-        }
+    }
 
 //Deze functie wordt gebruikt om eenvoudig een array door te geven en gegevens in de database in te voegen
     public function create()
@@ -33,6 +33,7 @@ class CultureController extends Controller
             'cultures' => $cultures,
         ]);
     }
+
 //Deze functie wordt gebruikt om bestanden op te slaan op je server
     public function store(Request $request)
     {
@@ -66,18 +67,21 @@ class CultureController extends Controller
 //Deze functie zorgt ervoor data van de id op een apart scherm te zien is
     public function show($id)
     {
-        $culturesMade = Culture::where('user', '=', Auth::id())->count();
-        $message = 'View can be seen after you ad 2 new cultures';
+
+        $culturesAdded = Culture::where('user_id', '=', Auth::id())->count();
+        $warning = 'View can only be seen after you add 3 new countries';
 
         $culture = Culture::find($id);
 
-        if ($culture->user_id !== Auth::user()->id && Auth::user()->role !== 'admin') {
-            return view('cultures.index', compact('message', 'culturesMade'));
+        if ($culture->user_id !== Auth::user()->id && Auth::user()->role !== 'admin' && $culturesAdded > 3) {
+            return redirect()->route('cultures.index', compact('warning', 'culturesAdded'));
         }
+
 
         return view('cultures.show', [
             'culture' => $culture
         ]);
+
     }
 
 //Dit is de functie die ervoor zorgt dat de id die je aanklikt de oude data blijft houden
@@ -140,6 +144,20 @@ class CultureController extends Controller
         }
     }
 
+    public function search()
+    {
 
+        $search = $_GET['search'];
+        $cultures = Culture::where('country', 'LIKE', '%' . $search . '%')
+            ->orWhere('culture', 'LIKE', '%' . $search . '%')->get();
+        return view('cultures.search', compact('cultures'));
+    }
+
+    public function changeCultureStatus(Request $request){
+
+       $cultures= Culture::find($request-> user_id);
+       $cultures-> status->$request->status;
+       $cultures->save();
+    }
 
 }
