@@ -137,7 +137,7 @@
                 </div>
 
 
-                <h1>Hoofd gerecht</h1>
+                <h1>Hoofdgerecht</h1>
                 <div class="form-group">
 
                     <input id="food"
@@ -150,6 +150,7 @@
                     <span class="" style="color: red">{{ $message }}</span>
                     @enderror
                 </div>
+
                 <form method="POST" action="">
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block"> Toevoegen</button>

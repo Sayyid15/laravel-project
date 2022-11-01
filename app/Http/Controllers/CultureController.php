@@ -1,28 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Auth;
 use Illuminate\Http\Request;
 use App\Models\Culture;
 
 class CultureController extends Controller
 {
-
+// In deze functie kun je eigenschappen van een object initialiseren
     public function __construct()
     {
-//        $this->middleware('auth')->except(['show', 'index']);
-        $this->middleware(['admin'])->only(['destroy', 'statusChange']);
-        $this->middleware(['admin', 'auth'])->only(['create', 'store', 'update', 'edit']);
-
+        $this->middleware('auth')->except(['show', 'index']);
+        $this->middleware(['admin'])->except(['index', 'create', 'store', 'update', 'edit']);
     }
 
+    //Dit is een openbare functie die standaard wordt aangeroepen wanneer de startpagina wordt geopend
     public function index()
     {
         $cultures = Culture::all();
         return view('cultures.index', [
             'cultures' => $cultures,
         ]);
-    }
 
+        }
+
+//Deze functie wordt gebruikt om eenvoudig een array door te geven en gegevens in de database in te voegen
     public function create()
     {
         $cultures = Culture::all();
@@ -30,7 +33,7 @@ class CultureController extends Controller
             'cultures' => $cultures,
         ]);
     }
-
+//Deze functie wordt gebruikt om bestanden op te slaan op je server
     public function store(Request $request)
     {
         $request->validate([
@@ -46,7 +49,7 @@ class CultureController extends Controller
         ]);
 
         Culture::create([
-            'user_id' =>\Auth::user()->id,
+            'user_id' => Auth::user()->id,
             'country' => $request->input('country'),
             'culture' => $request->input('culture'),
             'holidays' => $request->input('holidays'),
@@ -56,23 +59,20 @@ class CultureController extends Controller
             'clothes' => $request->input('clothes'),
             'food' => $request->input('food')
         ]);
-
-
-        return redirect('cultures');
+        return redirect()->route('cultures.index');
 
     }
 
-
-    public function show( $id)
+//Deze functie zorgt ervoor data van de id op een apart scherm te zien is
+    public function show($id)
     {
-
-        $culturesCreated = Culture::where('user_id', '=', \Auth::id())->count();
+        $culturesMade = Culture::where('user', '=', Auth::id())->count();
         $message = 'View can be seen after you ad 2 new cultures';
 
         $culture = Culture::find($id);
 
-        if (\Auth::id() !== $culture->user_id && \Auth::user()->role !== 'admin') {
-            return view('cultures.index', compact('message',  'culture', $culturesCreated));
+        if ($culture->user_id !== Auth::user()->id && Auth::user()->role !== 'admin') {
+            return view('cultures.index', compact('message', 'culturesMade'));
         }
 
         return view('cultures.show', [
@@ -80,20 +80,21 @@ class CultureController extends Controller
         ]);
     }
 
-
+//Dit is de functie die ervoor zorgt dat de id die je aanklikt de oude data blijft houden
     public function edit($id)
     {
         $culture = Culture::find($id);
-        if ($culture->user_id !== \Auth::user()->id ) {
+        if ($culture->user_id !== Auth::user()->id) {
             return redirect()->route('cultures.index');
         } else {
-        return view('cultures.edit', compact('culture'));
+            return view('cultures.edit', compact('culture'));
         }
     }
 
+    //Deze functie zorgt ervoor dat het de nieuwe data die ingevuld is update naar de home page
     public function update(Request $request, $id)
     {
-         $request->validate([
+        $request->validate([
             'country' => 'required',
             'culture' => 'required',
             'holidays' => 'required',
@@ -105,7 +106,7 @@ class CultureController extends Controller
         ]);
 
         $culture = Culture::find($id);
-        if ($culture->user_id !== \Auth::user()->id) {
+        if ($culture->user_id !== Auth::user()->id) {
             return redirect()->route('cultures.index');
         } else {
             $culture->country = $request->get('country');
@@ -123,38 +124,22 @@ class CultureController extends Controller
         return redirect()->route('cultures.index', $culture->id);
     }
 
+    //Dit is de functie die gebruikt wordt op items/producten te verwijderen
     public function destroy($id)
     {
         $info = Culture::find($id);
 
-
-        if ($info->user_id === \Auth::id() || \Auth::user()->role === 'admin') {
+        if ($info->user_id === Auth::id() || Auth::user()->role === 'admin') {
             $info->delete();
         }
 
-        if (\Auth::user() && \Auth::user()->role === 'admin') {
+        if (Auth::user() && Auth::user()->role === 'admin') {
             return redirect('cultures');
-        } elseif (\Auth::user()) {
+        } elseif (Auth::user()) {
             return redirect('cultures');
         }
     }
 
 
-    public function search()
-    {
-
-        $search = $_GET['searchQuery'];
-        $cultures = Culture::where('country', 'LIKE', '%' . $search . '%')
-            ->orWhere('culture', 'LIKE', '%' . $search . '%')->get();
-
-        return view('cultures.search', compact('cultures'));
-    }
-
-    public function statusChanges(Request $request)
-    {
-        $culture = Culture::find($request->culture_id);
-        $culture->status = $request->status;
-        $culture->save();
-    }
 
 }

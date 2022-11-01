@@ -30,7 +30,7 @@ class Culture extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function culture()
+    public function cultures()
     {
         return $this->belongsToMany(Culture::class);
     }

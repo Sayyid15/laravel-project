@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
@@ -16,11 +17,13 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()?->role !== 'admin') {
+        if (auth()->user()?->role !== 'admin'){
             redirect('cultures.index');
         }
 
         return $next($request);
-    }
+
+        }
+
 
 }
